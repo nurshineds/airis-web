@@ -1,6 +1,6 @@
 # AIRIS (Air Quality Monitoring System)
 
-AIRIS adalah sistem monitoring kualitas udara berbasis IoT yang menggunakan ESP32 sebagai perangkat sensor dan website sebagai media monitoring secara real-time. Sistem ini juga mendukung notifikasi melalui Telegram Bot serta terdapat fitur rekomendasi tindakan dan kesehatan berbasis AI yang dikembangkan khusus untuk MTS Negeri 2 Malang.
+AIRIS adalah sistem monitoring kualitas udara berbasis IoT yang menggunakan ESP32 sebagai perangkat sensor dan website sebagai media monitoring secara real-time. Sistem ini juga mendukung notifikasi melalui Telegram Bot serta terdapat fitur rekomendasi tindakan dan kesehatan berbasis AI yang dikembangkan khusus untuk MTS Negeri 2 Kota Malang.
 
 ---
 
