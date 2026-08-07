@@ -32,8 +32,8 @@ services:
     container_name: airis_pg
     restart: always
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PWD}
+      POSTGRES_USER: AIRIS_ADMIN
+      POSTGRES_PASSWORD: InisebuahPassword14
       POSTGRES_DB: airisdb
     ports:
       - "5432:5432"
@@ -47,12 +47,12 @@ services:
       - "8086:8086"
     environment:
       DOCKER_INFLUXDB_INIT_MODE: setup
-      DOCKER_INFLUXDB_INIT_USERNAME: ${INFLUX_USER}
-      DOCKER_INFLUXDB_INIT_PASSWORD: ${INFLUX_PWD}
+      DOCKER_INFLUXDB_INIT_USERNAME: AIRIS_ADMIN
+      DOCKER_INFLUXDB_INIT_PASSWORD: InisebuahPassword14
       DOCKER_INFLUXDB_INIT_ORG: airisorg
       DOCKER_INFLUXDB_INIT_BUCKET: airisbucket
       DOCKER_INFLUXDB_INIT_RETENTION: 0
-      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: ${INFLUX_TOKEN}
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: base64:KD2Zlxu45NvM8auMJihGLxR/4qfbobr+tX2SE+CLb3c=
     volumes:
       - influx_data:/var/lib/influxdb2
 
