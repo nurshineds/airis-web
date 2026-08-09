@@ -1,0 +1,158 @@
+.current-air-condition {
+    padding: 55px 0 50px;
+    background: var(--background);
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.air-condition-header {
+    margin-bottom: 28px;
+}
+
+.air-condition-header h1 {
+    margin: 0 0 5px;
+
+    font-family: "Outfit", sans-serif;
+    font-size: 28px;
+    font-weight: 400;
+
+    color: #555;
+}
+
+.air-condition-header p {
+    margin: 0;
+
+    font-size: 11px;
+    color: #777;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.air-condition-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+
+    align-items: stretch;
+}
+
+/* =========================
+   ISPU
+========================= */
+
+.ispu-card {
+    min-height: 145px;
+
+    padding: 18px 20px;
+
+    background: #e5e7eb;
+    border-radius: 7px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ispu-label {
+    margin: 0 0 8px;
+
+    font-size: 10px;
+    color: #4b5563;
+}
+
+.ispu-value {
+    margin-bottom: 3px;
+
+    font-family: "Outfit", sans-serif;
+    font-size: 30px;
+    font-weight: 400;
+
+    line-height: 1;
+
+    color: #4b5563;
+}
+
+.ispu-status {
+    margin: 0;
+
+    font-size: 10px;
+    color: #333;
+}
+
+/* =========================
+   GAS PARAMETERS
+========================= */
+
+.gas-card {
+    min-height: 145px;
+
+    padding: 18px 25px;
+
+    background: #243449;
+    border-radius: 7px;
+
+    color: white;
+}
+
+.gas-card-title {
+    margin: 0 0 16px;
+
+    font-family: "Outfit", sans-serif;
+    font-size: 8px;
+    font-weight: 400;
+
+    letter-spacing: 2px;
+
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.gas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 16px;
+}
+
+.gas-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 3px;
+}
+
+.gas-item span {
+    font-size: 8px;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.gas-item strong {
+    font-family: "Outfit", sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+
+    color: rgba(255, 255, 255, 0.65);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    .current-air-condition {
+        padding: 40px 0;
+    }
+
+    .air-condition-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .air-condition-header h1 {
+        font-size: 25px;
+    }
+}

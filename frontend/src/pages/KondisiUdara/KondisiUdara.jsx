@@ -1,10 +1,15 @@
-import "./KondisiUdara.css";
+import Navbar from "../../components/Navbar/Navbar";
+import CurrentAirCondition from "../../components/CurrentAirCondition/CurrentAirCondition";
+import Footer from "../../components/Footer/Footer";
 
 export default function KondisiUdara() {
     return (
-        <main className="kondisi-udara">
-            <h1>Kondisi Udara</h1>
-            <p>Halaman kondisi udara AIRIS.</p>
-        </main>
+        <>
+            <Navbar />
+
+            <CurrentAirCondition />
+
+            <Footer />
+        </>
     );
 }
