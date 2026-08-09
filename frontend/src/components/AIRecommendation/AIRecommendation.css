@@ -1,0 +1,260 @@
+.ai-recommendation {
+    background: #1e293b;
+    padding: 80px 0;
+    color: white;
+}
+
+.ai-header {
+    max-width: 700px;
+    margin: 0 auto 40px;
+    text-align: center;
+}
+
+.ai-label {
+    color: #22c55e;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.ai-header h2 {
+    font-family: "Outfit", sans-serif;
+    font-size: 36px;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.ai-header p:last-child {
+    color: #cbd5e1;
+    line-height: 1.7;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.ai-form {
+    max-width: 760px;
+    margin: 0 auto;
+
+    background: #0f172a;
+
+    padding: 30px;
+
+    border-radius: 16px;
+}
+
+.form-label {
+    color: white;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.condition-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.condition-button {
+    border: 1px solid #334155;
+
+    background: #1e293b;
+
+    color: #e2e8f0;
+
+    padding: 14px 16px;
+
+    border-radius: 8px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.condition-button:hover {
+    border-color: #22c55e;
+    background: #263548;
+}
+
+
+/* =========================
+   SELECT
+========================= */
+
+.select-label {
+    display: block;
+
+    color: #cbd5e1;
+
+    font-size: 14px;
+
+    margin-bottom: 8px;
+}
+
+.condition-select {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    border-radius: 8px;
+
+    border: 1px solid #334155;
+
+    background: #1e293b;
+
+    color: #cbd5e1;
+
+    font-family: "DM Sans", sans-serif;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.recommendation-button {
+    border: none;
+
+    background: #16a34a;
+
+    color: white;
+
+    padding: 14px 24px;
+
+    border-radius: 8px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.recommendation-button:hover {
+    background: #15803d;
+}
+
+
+/* =========================
+   RESULT
+========================= */
+
+.recommendation-result {
+    max-width: 760px;
+
+    margin: 25px auto 0;
+
+    background: #f0fdf4;
+
+    color: #334155;
+
+    border-radius: 12px;
+
+    padding: 28px;
+}
+
+.result-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 15px;
+}
+
+.result-header h3 {
+    font-family: "Outfit", sans-serif;
+
+    color: #14532d;
+
+    font-size: 22px;
+}
+
+.result-icon {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #dcfce7;
+
+    color: #16a34a;
+
+    font-weight: 800;
+}
+
+.recommendation-result > p {
+    color: #475569;
+
+    line-height: 1.7;
+
+    margin-bottom: 20px;
+}
+
+.result-action {
+    background: white;
+
+    border-radius: 10px;
+
+    padding: 18px;
+
+    border-left: 4px solid #16a34a;
+}
+
+.result-action strong {
+    display: block;
+
+    color: #14532d;
+
+    margin-bottom: 6px;
+}
+
+.result-action p {
+    color: #64748b;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+
+    .ai-recommendation {
+        padding: 60px 0;
+    }
+
+    .ai-header h2 {
+        font-size: 30px;
+    }
+
+    .ai-form {
+        padding: 20px;
+    }
+
+    .condition-list {
+        grid-template-columns: 1fr;
+    }
+
+    .recommendation-result {
+        padding: 20px;
+    }
+
+}
