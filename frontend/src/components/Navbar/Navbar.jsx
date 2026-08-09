@@ -1,31 +1,36 @@
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
-export default function Navbar(){
+export default function Navbar() {
+    return (
+        <nav className="navbar">
 
-return(
+            <Link to="/" className="logo">
+                AIRIS
+            </Link>
 
-<nav className="navbar">
+            <ul>
+                <li>
+                    <Link to="/">Beranda</Link>
+                </li>
 
-<div className="logo">
+                <li>
+                    <Link to="/KondisiUdara">Kondisi Udara</Link>
+                </li>
 
-AIRIS
+                <li>
+                    <Link to="/IndikatorPengukuran">
+                        Indikator Pengukuran
+                    </Link>
+                </li>
 
-</div>
+                <li>
+                    <Link to="/PedomanKesehatan">
+                        Pedoman Kesehatan
+                    </Link>
+                </li>
+            </ul>
 
-<ul>
-
-<li>Beranda</li>
-
-<li>Kondisi Udara</li>
-
-<li>Indikator Pengukuran</li>
-
-<li>Pedoman Kesehatan</li>
-
-</ul>
-
-</nav>
-
-);
-
+        </nav>
+    );
 }
