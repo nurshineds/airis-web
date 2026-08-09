@@ -1,21 +1,18 @@
 import Navbar from "../../components/Navbar/Navbar";
 import Hero from "../../components/Hero/Hero";
 import About from "../../components/About/About";
+import Indicators from "../../components/Indicators/Indicators";
 
 export default function Home() {
-
     return (
-
         <>
+            <Navbar />
 
-            <Navbar/>
+            <Hero />
 
-            <Hero/>
+            <About />
 
-            <About/>
-
+            <Indicators />
         </>
-
     );
-
 }
