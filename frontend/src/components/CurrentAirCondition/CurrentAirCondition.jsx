@@ -5,11 +5,15 @@ export default function CurrentAirCondition() {
         <section className="current-air-condition">
             <div className="container">
 
+                {/* HEADER */}
                 <div className="air-condition-header">
                     <h1>Halo, Matsandatama!</h1>
-                    <p>Pembaruan data terkini pada tanggal 04/08/2026</p>
+                    <p>
+                        Pembaruan data terkini pada tanggal 04/08/2026
+                    </p>
                 </div>
 
+                {/* CARDS */}
                 <div className="air-condition-grid">
 
                     {/* ISPU CARD */}
@@ -69,6 +73,7 @@ export default function CurrentAirCondition() {
                     </div>
 
                 </div>
+
             </div>
         </section>
     );
