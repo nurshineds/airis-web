@@ -1,76 +1,114 @@
-.navbar{
-
-height:70px;
-
-background:white;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:0 60px;
-
-box-shadow:0 2px 8px rgba(0,0,0,.05);
-
-position:sticky;
-
-top:0;
-
-z-index:100;
-
+.navbar {
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: relative; /* Crucial for positioning the mobile dropdown */
+    z-index: 999;
 }
 
-.logo{
-
-font-family:"Outfit";
-
-font-size:28px;
-
-font-weight:800;
-
-color:#14532d;
-
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
 }
 
-.navbar ul{
-
-display:flex;
-
-gap:40px;
-
-list-style:none;
-
-}
-
-.navbar li{
-
-font-size:15px;
-
-font-weight:500;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-.navbar li:hover{
-
-color:#16a34a;
-
-}
-
-.navbar a {
+.navbar-logo a {
+    font-family: "Outfit", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
     text-decoration: none;
-    color: inherit;
+    letter-spacing: 1px;
 }
 
-.navbar ul a {
-    color: inherit;
+.navbar-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 30px;
 }
 
-.navbar ul a:hover {
-    color: #169653;
+.navbar-links a {
+    text-decoration: none;
+    color: #555;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.navbar-links a:hover {
+    color: #5b9b61;
+}
+
+/* Hamburger Menu Icon - Hidden on Desktop */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.hamburger .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* =========================
+   MOBILE RESPONSIVENESS
+========================= */
+@media (max-width: 768px) {
+    /* Show the hamburger icon */
+    .hamburger {
+        display: flex;
+    }
+
+    /* Hide standard row links and position them as a dropdown */
+    .navbar-links {
+        position: absolute;
+        top: 70px; /* Height of the navbar */
+        left: 0;
+        width: 100%;
+        background-color: #ffffff;
+        flex-direction: column;
+        gap: 0;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        
+        /* Animation properties */
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+    }
+
+    /* When state is true, open the menu */
+    .navbar-links.active {
+        max-height: 300px;
+    }
+
+    .navbar-links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar-links a {
+        display: block;
+        padding: 15px 0;
+        border-top: 1px solid #f5f5f5;
+    }
+
+    /* Hamburger to 'X' Animation */
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
 }

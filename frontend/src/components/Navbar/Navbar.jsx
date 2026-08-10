@@ -1,36 +1,40 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import "./Navbar.css";
 
 export default function Navbar() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
     return (
         <nav className="navbar">
+            <div className="container navbar-container">
+                
+                <div className="navbar-logo">
+                    <a href="/">AIRIS</a>
+                </div>
 
-            <Link to="/" className="logo">
-                AIRIS
-            </Link>
+                {/* Hamburger Icon (Visible only on Mobile) */}
+                <div 
+                    className={`hamburger ${isMenuOpen ? "active" : ""}`} 
+                    onClick={toggleMenu}
+                >
+                    <span className="bar"></span>
+                    <span className="bar"></span>
+                    <span className="bar"></span>
+                </div>
 
-            <ul>
-                <li>
-                    <Link to="/">Beranda</Link>
-                </li>
+                {/* Navigation Links */}
+                <ul className={`navbar-links ${isMenuOpen ? "active" : ""}`}>
+                    <li><a href="/">Beranda</a></li>
+                    <li><a href="/KondisiUdara">Kondisi Udara</a></li>
+                    <li><a href="/IndikatorPengukuran">Indikator Pengukuran</a></li>
+                    <li><a href="/PedomanKesehatan">Pedoman Kesehatan</a></li>
+                </ul>
 
-                <li>
-                    <Link to="/KondisiUdara">Kondisi Udara</Link>
-                </li>
-
-                <li>
-                    <Link to="/IndikatorPengukuran">
-                        Indikator Pengukuran
-                    </Link>
-                </li>
-
-                <li>
-                    <Link to="/PedomanKesehatan">
-                        Pedoman Kesehatan
-                    </Link>
-                </li>
-            </ul>
-
+            </div>
         </nav>
     );
 }
