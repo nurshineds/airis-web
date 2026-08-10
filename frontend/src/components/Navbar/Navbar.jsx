@@ -2,87 +2,39 @@ import { useState } from "react";
 import "./Navbar.css";
 
 export default function Navbar() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const [open, setOpen] = useState(false);
-    const [activeMenu, setActiveMenu] = useState("beranda");
-
-    const handleMenuClick = (menu) => {
-        setActiveMenu(menu);
-        setOpen(false);
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
     };
 
     return (
-        <header className="navbar">
-
-            <div className="navbar-container">
-
-                <div className="logo">
-                    AIRIS
+        <nav className="navbar">
+            <div className="container navbar-container">
+                
+                <div className="navbar-logo">
+                    <a href="/">AIRIS</a>
                 </div>
 
-                <div
-                    className="hamburger"
-                    onClick={() => setOpen(!open)}
+                {/* Hamburger Icon (Visible only on Mobile) */}
+                <div 
+                    className={`hamburger ${isMenuOpen ? "active" : ""}`} 
+                    onClick={toggleMenu}
                 >
-                    ☰
+                    <span className="bar"></span>
+                    <span className="bar"></span>
+                    <span className="bar"></span>
                 </div>
 
-                <ul className={`nav-menu ${open ? "active" : ""}`}>
-
-                    <li>
-                        <a
-                            href="#beranda"
-                            className={activeMenu === "beranda" ? "active" : ""}
-                            onClick={() => handleMenuClick("beranda")}
-                        >
-                            Beranda
-                        </a>
-                    </li>
-
-                    <li>
-                        <a
-                            href="#kondisi"
-                            className={activeMenu === "kondisi" ? "active" : ""}
-                            onClick={() => handleMenuClick("kondisi")}
-                        >
-                            Kondisi Udara
-                        </a>
-                    </li>
-
-                    <li>
-                        <a
-                            href="#indikator"
-                            className={activeMenu === "indikator" ? "active" : ""}
-                            onClick={() => handleMenuClick("indikator")}
-                        >
-                            Indikator Pengukuran
-                        </a>
-                    </li>
-
-                    <li>
-                        <a
-                            href="#rekomendasi"
-                            className={activeMenu === "rekomendasi" ? "active" : ""}
-                            onClick={() => handleMenuClick("rekomendasi")}
-                        >
-                            Rekomendasi Kesehatan
-                        </a>
-                    </li>
-
-                    <li>
-                        <a
-                            href="#panduan"
-                            className={activeMenu === "panduan" ? "active" : ""}
-                            onClick={() => handleMenuClick("panduan")}
-                        >
-                            Panduan Kesehatan
-                        </a>
-                    </li>
-
+                {/* Navigation Links */}
+                <ul className={`navbar-links ${isMenuOpen ? "active" : ""}`}>
+                    <li><a href="/">Beranda</a></li>
+                    <li><a href="/KondisiUdara">Kondisi Udara</a></li>
+                    <li><a href="/IndikatorPengukuran">Indikator Pengukuran</a></li>
+                    <li><a href="/PedomanKesehatan">Pedoman Kesehatan</a></li>
                 </ul>
 
             </div>
-
-        </header>
+        </nav>
     );
 }

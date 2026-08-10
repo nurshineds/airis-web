@@ -1,0 +1,144 @@
+.current-air-condition {
+    padding: 55px 0 50px;
+    background: var(--background);
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.air-condition-header {
+    margin-bottom: 30px;
+}
+
+.air-condition-header h1 {
+    margin: 0 0 8px;
+    font-family: "Outfit", sans-serif;
+    font-size: 32px; /* Scaled up from 28px */
+    font-weight: 500;
+    color: #444;
+}
+
+.air-condition-header p {
+    margin: 0;
+    font-size: 15px; /* Scaled up from 11px */
+    color: #666;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.air-condition-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 32px;
+    align-items: stretch;
+}
+
+/* =========================
+   ISPU
+========================= */
+
+.ispu-card {
+    padding: 30px 35px; /* Replaced fixed min-height with flexible padding */
+    background: #e5e7eb;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ispu-label {
+    margin: 0 0 12px;
+    font-size: 15px; /* Scaled up from 10px */
+    color: #4b5563;
+}
+
+.ispu-value {
+    margin-bottom: 5px;
+    font-family: "Outfit", sans-serif;
+    font-size: 56px; /* Scaled up significantly for dashboard impact */
+    font-weight: 500;
+    line-height: 1;
+    color: #4b5563;
+}
+
+.ispu-status {
+    margin: 0;
+    font-size: 16px; /* Scaled up from 10px */
+    font-weight: 500;
+    color: #333;
+}
+
+/* =========================
+   GAS PARAMETERS
+========================= */
+
+.gas-card {
+    padding: 30px 35px;
+    background: #243449;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.gas-card-title {
+    margin: 0 0 24px;
+    font-family: "Outfit", sans-serif;
+    font-size: 14px; /* Scaled up from 8px */
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.5); /* Slightly increased opacity for readability */
+}
+
+.gas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 24px; /* Increased gap for larger text */
+    column-gap: 20px;
+}
+
+.gas-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.gas-item span {
+    font-size: 14px; /* Scaled up from 8px */
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.gas-item strong {
+    font-family: "Outfit", sans-serif;
+    font-size: 18px; /* Scaled up from 10px */
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+    .current-air-condition {
+        padding: 40px 0;
+    }
+
+    .air-condition-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .air-condition-header h1 {
+        font-size: 28px;
+    }
+    
+    .ispu-value {
+        font-size: 48px;
+    }
+}

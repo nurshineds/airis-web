@@ -1,0 +1,68 @@
+.ispu-info {
+    padding: 60px 0;
+    background: #ffffff;
+}
+
+.ispu-info-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.ispu-title {
+    font-family: "Outfit", sans-serif;
+    font-size: 36px;
+    font-weight: 300; /* Keeping it thin based on reference */
+    color: #555;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.ispu-description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.gas-parameter-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.gas-parameter-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.gas-parameter-item {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    background-color: #f2faf2; /* Very light green */
+    border-left: 4px solid #5b9b61; /* Green accent border */
+    border-radius: 6px;
+}
+
+.gas-symbol {
+    font-family: "Outfit", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #64b56b; /* Lighter green text for symbol */
+    width: 60px; /* Fixed width to align the names */
+}
+
+.gas-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #444;
+}
+
+@media (max-width: 768px) {
+    .ispu-title {
+        font-size: 28px;
+        text-align: left;
+    }
+}
