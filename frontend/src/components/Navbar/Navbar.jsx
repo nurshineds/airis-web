@@ -1,31 +1,88 @@
+import { useState } from "react";
 import "./Navbar.css";
 
-export default function Navbar(){
+export default function Navbar() {
 
-return(
+    const [open, setOpen] = useState(false);
+    const [activeMenu, setActiveMenu] = useState("beranda");
 
-<nav className="navbar">
+    const handleMenuClick = (menu) => {
+        setActiveMenu(menu);
+        setOpen(false);
+    };
 
-<div className="logo">
+    return (
+        <header className="navbar">
 
-AIRIS
+            <div className="navbar-container">
 
-</div>
+                <div className="logo">
+                    AIRIS
+                </div>
 
-<ul>
+                <div
+                    className="hamburger"
+                    onClick={() => setOpen(!open)}
+                >
+                    ☰
+                </div>
 
-<li>Beranda</li>
+                <ul className={`nav-menu ${open ? "active" : ""}`}>
 
-<li>Kondisi Udara</li>
+                    <li>
+                        <a
+                            href="#beranda"
+                            className={activeMenu === "beranda" ? "active" : ""}
+                            onClick={() => handleMenuClick("beranda")}
+                        >
+                            Beranda
+                        </a>
+                    </li>
 
-<li>Indikator Pengukuran</li>
+                    <li>
+                        <a
+                            href="#kondisi"
+                            className={activeMenu === "kondisi" ? "active" : ""}
+                            onClick={() => handleMenuClick("kondisi")}
+                        >
+                            Kondisi Udara
+                        </a>
+                    </li>
 
-<li>Pedoman Kesehatan</li>
+                    <li>
+                        <a
+                            href="#indikator"
+                            className={activeMenu === "indikator" ? "active" : ""}
+                            onClick={() => handleMenuClick("indikator")}
+                        >
+                            Indikator Pengukuran
+                        </a>
+                    </li>
 
-</ul>
+                    <li>
+                        <a
+                            href="#rekomendasi"
+                            className={activeMenu === "rekomendasi" ? "active" : ""}
+                            onClick={() => handleMenuClick("rekomendasi")}
+                        >
+                            Rekomendasi Kesehatan
+                        </a>
+                    </li>
 
-</nav>
+                    <li>
+                        <a
+                            href="#panduan"
+                            className={activeMenu === "panduan" ? "active" : ""}
+                            onClick={() => handleMenuClick("panduan")}
+                        >
+                            Panduan Kesehatan
+                        </a>
+                    </li>
 
-);
+                </ul>
 
+            </div>
+
+        </header>
+    );
 }
