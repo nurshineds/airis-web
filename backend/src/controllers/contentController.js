@@ -1,9 +1,8 @@
-// moga bener aamiin
 const prisma = require("../lib/prisma");
 
 exports.getContentbyID = async (req, res) => {
     try {
-        const { idContent } = req.params;
+        const { idContent } = req.body;
  
         const content = await prisma.webContent.findUnique({
             where: { idContent },
