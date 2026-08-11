@@ -1,6 +1,44 @@
 // moga bener aamiin
 const prisma = require("../lib/prisma");
 
+exports.getContentbyID = async (req, res) => {
+    try {
+        const { idContent } = req.params;
+ 
+        const content = await prisma.webContent.findUnique({
+            where: { idContent },
+            select: {
+                idContent: true,
+                type: true,
+                title: true,
+                content: true
+            }
+        });
+ 
+        if (!content) {
+            console.log(`Get contact failed: content with Content ${idContent} not found.`);
+            return res.status(404).json({
+                success: false,
+                message: "Content not found."
+            });
+        }
+ 
+        console.log("Content successfully retrieved:", content);
+ 
+        res.json({
+            success: true,
+            message: "Successfully retrieved content data.",
+            data: content
+        });
+    } catch (error) {
+        console.error("Get content by id error:", error);
+        res.status(500).json({
+            success: false,
+            message: "An error occurred."
+        });
+    }
+};
+
 exports.createContent = async (req, res) => {
     try {
         const { type, title, content } = req.body;

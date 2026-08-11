@@ -20,7 +20,7 @@ model Admin {
 }
 
 model webContent {
-  idContent Int      @id @default(autoincrement())
+  idContent String   @id @db.VarChar(100)
   type      String   @db.VarChar(50)
   title     String   @db.VarChar(255)
   content   String   @db.Text
