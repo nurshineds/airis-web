@@ -42,7 +42,7 @@ exports.generateAirQuality = async (req, res) => {
             temperature: 0.3
         });
 
-        res.json({
+        return res.status(200).json({
             success: true,
             message: "Analisis udara berhasil.",
             data: {
@@ -53,7 +53,7 @@ exports.generateAirQuality = async (req, res) => {
         });
     } catch(error){
         console.error("Analisa kualitas udara error: ", error);
-        res.status(500).json({
+        return res.status(500).json({
             succes: false,
             message: "Gagal menganalisis kualitas udara.",
             error: error.message
@@ -84,7 +84,7 @@ exports.generateHealthRecom = async (req, res) => {
             temperature: 0.4
         });
 
-        res.json({
+        return res.status(200).json({
             success: true,
             message: "Rekomendasi kesehatan berhasil.",
             data: {
@@ -95,7 +95,7 @@ exports.generateHealthRecom = async (req, res) => {
         });
     } catch(error){
         console.error("Rekomendasi kesehatan error: ", error);
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: "Gagal membuat rekomendasi kesehatan.",
             error: error.message
