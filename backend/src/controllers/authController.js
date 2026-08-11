@@ -43,7 +43,7 @@ exports.signin = async (req, res) => {
             { expiresIn: "8h" }
         );
 
-        res.json({
+        return res.status(200).json({
             success: true,
             message: "Sign in successful.",
             admin: {
@@ -53,7 +53,7 @@ exports.signin = async (req, res) => {
         });
     } catch(error){
         console.error("Sign in error:", error);
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: "An error occurred."
         });
@@ -100,7 +100,7 @@ exports.login = async (req, res) => {
             { expiresIn: "8h" }
         );
 
-        res.json({
+        return res.status(200).json({
             success: true,
             message: "Login successful.",
             token,
@@ -111,7 +111,7 @@ exports.login = async (req, res) => {
         });
     } catch(error) {
         console.error("Login error:", error);
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: "An error occurred."
         });
@@ -135,14 +135,14 @@ exports.getProfileAdmin = async(req, res) => {
             });
         }
 
-        res.json({
+        return res.status(200).json({
             success: true,
             message: "Admin profile data retrieved successfully.",
             data: admin
         });
     } catch(error){
         console.error("Get profile error:", error);
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: "An error occurred."
         });
@@ -150,7 +150,7 @@ exports.getProfileAdmin = async(req, res) => {
 };
 
 exports.logout = async(req, res) => {
-    res.json({
+    return res.status(200).json({
         success: true,
         message: "Logged out successfully."
     });
