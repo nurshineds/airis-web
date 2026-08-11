@@ -1,4 +1,4 @@
-// FILE UNTUK ROUTING AUTENTIKASI ADMIN
+// ini sebuah file
 const express = require("express");
 const router = express.Router();
 const adminController = require("../controllers/authController");
