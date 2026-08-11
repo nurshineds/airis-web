@@ -1,9 +1,8 @@
-// FILE CONTROLLER UNTUK AUTENTIKASI ADMIN, BELUM PAKE BCRYPT SAMA JWT
+//Arga wuz here
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const prisma = require("../lib/prisma");
 
-// BUAT AKUN ADMIN
 exports.signin = async (req, res) => {
     try{
         const { username, password } = req.body;
@@ -11,7 +10,7 @@ exports.signin = async (req, res) => {
         if(!username || !password){
             return res.status(400).json({
                 success: false,
-                message: "Username dan password harus diisi!"
+                message: "Username and password are required!"
             });
         }
 
@@ -22,7 +21,7 @@ exports.signin = async (req, res) => {
         if(adminExist){
             return res.status(400).json({
                 success: false,
-                message: "Username sudah digunakan."
+                message: "This username is already taken."
             });
         }
 
@@ -46,7 +45,7 @@ exports.signin = async (req, res) => {
 
         res.json({
             success: true,
-            message: "Sign in berhasil",
+            message: "Sign in successful.",
             admin: {
                 idAdmin: admin.idAdmin,
                 username: admin.username
@@ -56,12 +55,11 @@ exports.signin = async (req, res) => {
         console.error("Sign in error:", error);
         res.status(500).json({
             success: false,
-            message: "Terjadi kesalahan."
+            message: "An error occurred."
         });
     }
 }
 
-// LOGIN ADMIN
 exports.login = async (req, res) => {
     try{
         const { username, password } = req.body;
@@ -69,7 +67,7 @@ exports.login = async (req, res) => {
         if(!username || !password){
             return res.status(400).json({
                 success: false,
-                message: "Username dan password harus diisi!"
+                message: "Username and password are required!"
             });
         }
 
@@ -80,7 +78,7 @@ exports.login = async (req, res) => {
         if(!admin){
             return res.status(401).json({
                 success: false,
-                message: "Username atau password salah."
+                message: "Invalid username or password."
             });
         }
 
@@ -89,7 +87,7 @@ exports.login = async (req, res) => {
         if (!isPasswordValid){
             return res.status(401).json({
                 success: false,
-                message: "Username atau password salah."
+                message: "Invalid username or password."
             });
         }
 
@@ -104,7 +102,7 @@ exports.login = async (req, res) => {
 
         res.json({
             success: true,
-            message: "Login berhasil",
+            message: "Login successful.",
             token,
             admin: {
                 idAdmin: admin.idAdmin,
@@ -115,12 +113,11 @@ exports.login = async (req, res) => {
         console.error("Login error:", error);
         res.status(500).json({
             success: false,
-            message: "Terjadi kesalahan."
+            message: "An error occurred."
         });
     }
 };
 
-// GET PROFILE ADMIN
 exports.getProfileAdmin = async(req, res) => {
     try{
         const admin = await prisma.admin.findUnique({
@@ -134,28 +131,29 @@ exports.getProfileAdmin = async(req, res) => {
         if(!admin){
             return res.status(404).json({
                 success: false,
-                message: "Akun tidak ditemukan."
+                message: "Account not found."
             });
         }
 
         res.json({
             success: true,
-            message: "Berhasil mengambil data profil admin.",
+            message: "Admin profile data retrieved successfully.",
             data: admin
         });
     } catch(error){
         console.error("Get profile error:", error);
         res.status(500).json({
             success: false,
-            message: "Terjadi kesalahan."
+            message: "An error occurred."
         });
     }
 };
 
-// LOGOUT ADMIN
 exports.logout = async(req, res) => {
     res.json({
         success: true,
-        message: "Berhasil logout."
+        message: "Logged out successfully."
     });
 };
+
+//dengan segala puji bagi tuhan pencipta alam semesta. code ini hanya dirimulah yang tau benar dan salahnya. hambamu yang fana dan naif ini hanya bisa mengikuti tutorial yutub dari orang india berumur 20 tahunan
