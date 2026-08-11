@@ -4,8 +4,7 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -24,7 +23,7 @@ model webContent {
   idContent Int      @id @default(autoincrement())
   type      String   @db.VarChar(50)
   title     String   @db.VarChar(255)
-  content   String   @db.text
+  content   String   @db.Text
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -35,13 +34,13 @@ model thresholdValue {
   indicatorUnit    String   @db.VarChar(20)
   maxTresholdValue Float  
   minTresholdValue Float  
-  description      String   @db.text
+  description      String   @db.Text
   updatedAt        DateTime @updatedAt
 }
 
 model devices {
   idDevices     Int      @id @default(autoincrement())
-  deviceLocated String   @db.text
+  deviceLocated String   @db.Text
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
