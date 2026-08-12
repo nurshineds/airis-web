@@ -1,0 +1,238 @@
+/* =========================
+   AIRIS MOTION SYSTEM
+========================= */
+
+:root {
+    --ease-airis: cubic-bezier(.22, 1, .36, 1);
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 84px;
+    overscroll-behavior-y: none;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* Route/page loading overlay */
+.page-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 18px;
+    background:
+        radial-gradient(circle at 50% 42%, rgba(22, 163, 74, .12), transparent 28%),
+        #f5fcf7;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .55s var(--ease-airis), visibility .55s;
+}
+
+.page-loader.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+
+.loader-orbit {
+    position: relative;
+    width: 74px;
+    height: 74px;
+    display: grid;
+    place-items: center;
+}
+
+.loader-orbit::before,
+.loader-orbit::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    border: 1px solid rgba(22, 163, 74, .18);
+    border-radius: 50%;
+}
+
+.loader-orbit::after {
+    inset: 12px;
+    border-color: rgba(217, 119, 6, .22);
+}
+
+.loader-orbit span {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #16a34a;
+    box-shadow: 0 0 16px rgba(22, 163, 74, .55);
+    animation: orbit 1.5s linear infinite;
+}
+
+.loader-orbit span:nth-child(2) {
+    background: #d97706;
+    animation-delay: -.5s;
+}
+
+.loader-orbit span:nth-child(3) {
+    width: 5px;
+    height: 5px;
+    animation-delay: -1s;
+}
+
+.loader-core {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: linear-gradient(145deg, #16a34a, #14532d);
+    color: #fff;
+    font-family: "Outfit", sans-serif;
+    font-weight: 800;
+    box-shadow: 0 10px 30px rgba(20, 83, 45, .22);
+    animation: corePulse 1.5s ease-in-out infinite;
+}
+
+.loader-brand {
+    font-family: "Outfit", sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .28em;
+    color: #14532d;
+    padding-left: .28em;
+}
+
+.loader-line {
+    width: 120px;
+    height: 2px;
+    overflow: hidden;
+    border-radius: 99px;
+    background: rgba(22, 163, 74, .12);
+}
+
+.loader-line span {
+    display: block;
+    width: 45%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #16a34a, #d97706);
+    animation: loadingLine 1.1s var(--ease-airis) infinite;
+}
+
+/* Scroll reveal */
+.js-ready .reveal-on-scroll {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0) scale(.985);
+    filter: blur(4px);
+    transition:
+        opacity .8s var(--ease-airis),
+        transform .8s var(--ease-airis),
+        filter .8s var(--ease-airis);
+    transition-delay: var(--reveal-delay, 0ms);
+}
+
+.js-ready .reveal-on-scroll.is-revealed {
+    opacity: 1;
+    transform: none;
+    filter: none;
+}
+
+/* Universal interactive polish */
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid rgba(217, 119, 6, .35);
+    outline-offset: 4px;
+}
+
+.indicator-card,
+.guideline-card,
+.classification-card,
+.history-card,
+.ispu-card,
+.gas-card,
+.overview-card,
+.recommendation-result,
+.gas-parameter-item {
+    will-change: transform;
+}
+
+.indicator-card,
+.guideline-card,
+.classification-card,
+.history-card,
+.ispu-card,
+.gas-card,
+.overview-card,
+.recommendation-result,
+.gas-parameter-item,
+.hero-button,
+.recommendation-button,
+.export-csv-btn {
+    transition:
+        transform .4s var(--ease-airis),
+        box-shadow .4s var(--ease-airis),
+        border-color .3s ease,
+        background-color .3s ease;
+}
+
+.indicator-card:hover,
+.guideline-card:hover,
+.classification-card:hover,
+.history-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 18px 42px rgba(15, 23, 42, .10);
+}
+
+.indicator-card:hover .indicator-icon,
+.guideline-card:hover .guideline-icon {
+    transform: scale(1.08) rotate(-4deg);
+}
+
+.indicator-icon,
+.guideline-icon {
+    transition: transform .45s var(--ease-airis), box-shadow .45s var(--ease-airis);
+}
+
+/* Respect users who request less motion */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+
+    .js-ready .reveal-on-scroll {
+        opacity: 1;
+        transform: none;
+        filter: none;
+    }
+}
+
+@keyframes orbit {
+    from { transform: rotate(0deg) translateX(31px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(31px) rotate(-360deg); }
+}
+
+@keyframes corePulse {
+    50% { transform: scale(1.06); box-shadow: 0 14px 34px rgba(20, 83, 45, .28); }
+}
+
+@keyframes loadingLine {
+    0% { transform: translateX(-130%); }
+    100% { transform: translateX(300%); }
+}

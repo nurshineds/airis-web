@@ -35,7 +35,7 @@ const guidelines = [
 
 export default function GuideLines() {
     return (
-        <section className="guidelines">
+        <section className="guidelines" id="pedoman-kesehatan">
             <div className="container">
 
                 <div className="guidelines-header">

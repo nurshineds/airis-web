@@ -35,7 +35,7 @@ const indicators = [
 
 export default function Indicators() {
     return (
-        <section className="indicators">
+        <section className="indicators" id="indikator">
             <div className="container">
 
                 <div className="indicators-header">
