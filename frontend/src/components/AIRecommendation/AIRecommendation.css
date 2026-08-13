@@ -560,6 +560,44 @@
     transform: translateY(-1px);
 }
 
+.uks-send-hint {
+    margin: 8px 0 0;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.uks-clipboard-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    color: #7c2d12;
+}
+
+.uks-clipboard-warning-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.uks-clipboard-warning strong {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 3px;
+    color: #9a3412;
+}
+
+.uks-clipboard-warning p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #7c2d12;
+}
+
 @media (max-width: 640px) {
     .uks-chat-actions {
         flex-direction: column;
@@ -568,6 +606,127 @@
     .uks-copy-button,
     .uks-send-button {
         width: 100%;
+    }
+}
+
+/* =========================
+   POPUP MODAL KIRIM UKS
+========================= */
+
+.uks-popup-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+    animation: popup-fade-in 0.2s ease;
+}
+
+@keyframes popup-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.uks-popup {
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px 28px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: popup-slide-up 0.25s cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes popup-slide-up {
+    from { transform: translateY(24px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+
+.uks-popup-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+
+.uks-popup h3 {
+    font-family: "Outfit", sans-serif;
+    font-size: 22px;
+    color: #14532d;
+    margin: 0 0 10px;
+}
+
+.uks-popup > p {
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0 0 18px;
+}
+
+.uks-popup-steps {
+    text-align: left;
+    background: #f0fdf4;
+    border-radius: 12px;
+    padding: 16px 16px 16px 32px;
+    margin: 0 0 24px;
+    color: #334155;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.uks-popup-steps li + li {
+    margin-top: 4px;
+}
+
+.uks-popup-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.uks-popup-cancel {
+    flex: 1;
+    min-height: 44px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #fff;
+    color: #64748b;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.uks-popup-cancel:hover {
+    background: #f8fafc;
+}
+
+.uks-popup-confirm {
+    flex: 2;
+    min-height: 44px;
+    border: 0;
+    border-radius: 10px;
+    background: #16a34a;
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.uks-popup-confirm:hover {
+    background: #15803d;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+    .uks-popup {
+        padding: 24px 18px;
+    }
+    .uks-popup-actions {
+        flex-direction: column;
     }
 }
 
