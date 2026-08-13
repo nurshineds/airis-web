@@ -1,5 +1,9 @@
 import { useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import "./AIRecommendation.css";
+
+// Ganti dengan link grup WhatsApp UKS yang sebenarnya
+const GRUP_WA_UKS = "https://chat.whatsapp.com/ECrcqyxmO153zBCR9XZMrZ?s=cl&p=a&ilr=1";
 
 const symptoms = [
     "Batuk",
@@ -30,6 +34,8 @@ export default function AIRecommendation() {
     const [studentClass, setStudentClass] = useState("");
     const [chatFormat, setChatFormat] = useState("");
     const [copied, setCopied] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
+    const [clipboardBlocked, setClipboardBlocked] = useState(false);
 
     const toggleSymptom = (symptom) => {
         setShowRecommendation(false);
@@ -65,6 +71,7 @@ export default function AIRecommendation() {
     };
 
     return (
+        <>
         <section className="ai-recommendation" id="rekomendasi-kesehatan">
             <div className="container">
                 <div className="ai-header">
@@ -300,16 +307,51 @@ export default function AIRecommendation() {
                                                 className="uks-send-button"
                                                 type="button"
                                                 onClick={() => {
-                                                    const encodedMessage = encodeURIComponent(chatFormat);
-                                                    window.open(
-                                                        `https://wa.me/?text=${encodedMessage}`,
-                                                        "_blank",
-                                                        "noopener,noreferrer"
-                                                    );
+                                                    setClipboardBlocked(false);
+                                                    if (navigator.clipboard && window.isSecureContext) {
+                                                        navigator.clipboard.writeText(chatFormat)
+                                                            .then(() => {
+                                                                setCopied(true);
+                                                                setShowPopup(true);
+                                                            })
+                                                            .catch(() => {
+                                                                setClipboardBlocked(true);
+                                                            });
+                                                    } else {
+                                                        // Fallback execCommand
+                                                        try {
+                                                            const textarea = document.getElementById("uks-chat-format");
+                                                            textarea?.select();
+                                                            const ok = document.execCommand("copy");
+                                                            if (ok) {
+                                                                setCopied(true);
+                                                                setShowPopup(true);
+                                                            } else {
+                                                                setClipboardBlocked(true);
+                                                            }
+                                                        } catch {
+                                                            setClipboardBlocked(true);
+                                                        }
+                                                    }
                                                 }}
                                             >
-                                                Kirim ke UKS
+                                                Kirim ke Grup UKS
                                             </button>
+                                            <p className="uks-send-hint">
+                                                Pesan akan otomatis tersalin — tinggal paste di grup UKS.
+                                            </p>
+                                            {clipboardBlocked && (
+                                                <div className="uks-clipboard-warning" role="alert">
+                                                    <span className="uks-clipboard-warning-icon">⚠️</span>
+                                                    <div>
+                                                        <strong>Akses clipboard diblokir</strong>
+                                                        <p>
+                                                            Aktifkan izin clipboard di browser kamu agar pesan bisa tersalin otomatis.
+                                                            Atau salin manual teks di atas, lalu paste ke grup UKS.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 )}
@@ -319,5 +361,45 @@ export default function AIRecommendation() {
                 )}
             </div>
         </section>
+
+        {showPopup && createPortal(
+            <div className="uks-popup-overlay" role="dialog" aria-modal="true" aria-label="Instruksi kirim ke UKS">
+                <div className="uks-popup">
+                    <div className="uks-popup-icon">📋</div>
+                    <h3>Pesan Siap Dikirim!</h3>
+                    <p>
+                        Pesan laporan gejalamu sudah <strong>tersalin otomatis</strong>.
+                        Setelah grup WhatsApp UKS terbuka, cukup <strong>tekan area chat lalu paste</strong> — pesanmu langsung terisi.
+                    </p>
+                    <ol className="uks-popup-steps">
+                        <li>Klik <strong>"Buka Grup UKS"</strong> di bawah</li>
+                        <li>Grup WhatsApp UKS akan terbuka</li>
+                        <li>Tekan area ketik, lalu <strong>paste</strong> (Ctrl+V / tahan lalu Tempel)</li>
+                        <li>Kirim pesan ✓</li>
+                    </ol>
+                    <div className="uks-popup-actions">
+                        <button
+                            className="uks-popup-cancel"
+                            type="button"
+                            onClick={() => setShowPopup(false)}
+                        >
+                            Batal
+                        </button>
+                        <button
+                            className="uks-popup-confirm"
+                            type="button"
+                            onClick={() => {
+                                setShowPopup(false);
+                                window.open(GRUP_WA_UKS, "_blank", "noopener,noreferrer");
+                            }}
+                        >
+                            Buka Grup UKS →
+                        </button>
+                    </div>
+                </div>
+            </div>,
+            document.body
+        )}
+        </>
     );
 }
