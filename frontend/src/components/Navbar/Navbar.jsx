@@ -9,6 +9,7 @@ const links = [
 ];
 
 function Icon({ name }) {
+
     if (name === "home") return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V10Z" /><path d="M9 21v-6h6v6" /></svg>;
     if (name === "air") return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h11.5a3.5 3.5 0 1 0-3.2-5" /><path d="M3 12h15a3 3 0 1 1-2.7 4.3" /><path d="M3 16h8" /></svg>;
     if (name === "guide") return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5A2.5 2.5 0 0 1 8.5 2H20v17H8.5A2.5 2.5 0 0 0 6 21.5Z" /><path d="M6 4.5v17" /><path d="M10 6h6M10 10h6M10 14h4" /></svg>;
@@ -102,3 +103,4 @@ export default function Navbar() {
         </nav>
     );
 }
+

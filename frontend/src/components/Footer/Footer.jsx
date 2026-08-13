@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Footer.css";
 
 function LocationIcon() { return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5.5-8 11-8 11S4 15.5 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>; }
@@ -7,6 +7,29 @@ function MailIcon() { return <svg viewBox="0 0 24 24" aria-hidden="true"><rect x
 function ArrowIcon() { return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M13 7l5 5-5 5"/></svg>; }
 
 export default function Footer() {
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const goHomeSection = (sectionId) => {
+        if (location.pathname === "/") {
+            window.setTimeout(() => {
+                document.getElementById(sectionId)?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                });
+            }, 0);
+            window.history.replaceState(null, "", `/#${sectionId}`);
+            return;
+        }
+
+        navigate(`/#${sectionId}`);
+    };
+
+    const handleSectionClick = (event, sectionId) => {
+        event.preventDefault();
+        goHomeSection(sectionId);
+    };
+
     const backToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
     return (
@@ -40,7 +63,8 @@ export default function Footer() {
                             <Link to="/">Beranda <ArrowIcon /></Link>
                             <Link to="/KondisiUdara">Kondisi Udara <ArrowIcon /></Link>
                             <Link to="/IndikatorPengukuran">Indikator Pengukuran <ArrowIcon /></Link>
-                            <Link to="/#pedoman-kesehatan">Pedoman Kesehatan <ArrowIcon /></Link>
+                            <a href="/#rekomendasi-kesehatan" onClick={(event) => handleSectionClick(event, "rekomendasi-kesehatan")}>Rekomendasi Kesehatan <ArrowIcon /></a>
+                            <a href="/#pedoman-kesehatan" onClick={(event) => handleSectionClick(event, "pedoman-kesehatan")}>Pedoman Kesehatan <ArrowIcon /></a>
                         </nav>
                     </div>
 
