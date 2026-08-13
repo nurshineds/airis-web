@@ -1,0 +1,76 @@
+version: "3.9"
+
+services:
+
+  airis_be:
+    build: ./backend
+    container_name: airis_be
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - airis_pg
+      - airis_influx
+
+  airis_fe:
+    build: ./frontend
+    container_name: airis_fe
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - airis_be
+
+  airis_pg:
+    image: postgres:16
+    container_name: airis_pg
+    restart: always
+    environment:
+      POSTGRES_USER: airisadm
+      POSTGRES_PASSWORD: kasurempukairis
+      POSTGRES_DB: airisdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    
+  airis_influx:
+    image: influxdb:2.7
+    container_name: airis_influx
+    ports:
+      - "8086:8086"
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: airisadm
+      DOCKER_INFLUXDB_INIT_PASSWORD: kasurempukairis
+      DOCKER_INFLUXDB_INIT_ORG: airisorg
+      DOCKER_INFLUXDB_INIT_BUCKET: airisbucket
+      DOCKER_INFLUXDB_INIT_RETENTION: 0
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: bb18ce8dff40fe5159d3e8570130ddc4d5cb54d9b0a562bed8876c82c3ed11f2
+    volumes:
+      - influx_data:/var/lib/influxdb2
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672" #AQMP
+      - "15672:15672" #Management
+      - "1883:1883" #MQTT
+    environment:
+      RABBITMQ_DEFAULT_USER: airisadm
+      RABBITMQ_DEFAULT_PASS: kasurempukairis
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+volumes:
+  postgres_data:
+  influx_data:
+  rabbitmq_data:

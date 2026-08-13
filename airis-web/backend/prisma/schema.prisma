@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Admin {
+  idAdmin    Int      @id @default(autoincrement())
+  username   String   @unique @db.VarChar(50)
+  password   String   @db.VarChar(255)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt   
+}
+
+model webContent {
+  idContent String   @id @db.VarChar(100)
+  type      String   @db.VarChar(50)
+  title     String   @db.VarChar(255)
+  content   String   @db.Text
+  symbol    String?  @db.VarChar(20)
+  icon      String?  @db.VarChar(10)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model thresholdValue {
+  idIndicator      Int      @id @default(autoincrement())
+  indicatorName    String   @db.VarChar(50)
+  indicatorUnit    String   @db.VarChar(20)
+  maxTresholdValue Float  
+  minTresholdValue Float  
+  description      String   @db.Text
+  updatedAt        DateTime @updatedAt
+}
+
+model devices {
+  idDevices     Int      @id @default(autoincrement())
+  deviceLocated String   @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

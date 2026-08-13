@@ -1,0 +1,56 @@
+.indicators{position:relative;overflow:hidden;background:linear-gradient(180deg,#f0fdf4,#f8fcf9);padding:90px 0}.indicators::before{content:"";position:absolute;width:520px;height:520px;left:-280px;top:30px;border-radius:50%;background:rgba(22,163,74,.07);filter:blur(8px)}.indicators-header{position:relative;z-index:1;max-width:760px;margin:0 auto 48px;text-align:center}.section-label{display:inline-block;color:#16a34a;font-size:12px;font-weight:800;letter-spacing:.13em;margin-bottom:10px}.indicators-header h2{font:600 clamp(31px,4vw,44px)/1.1 "Outfit",sans-serif;color:#14532d;letter-spacing:-.035em;margin-bottom:15px}.section-description{color:#64748b;line-height:1.7;max-width:650px;margin:auto}.indicator-grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.indicator-card{position:relative;overflow:hidden;min-height:210px;padding:22px;border:1px solid rgba(20,83,45,.08);border-radius:22px;background:rgba(255,255,255,.82);box-shadow:0 10px 28px rgba(15,23,42,.05);display:flex;flex-direction:column;align-items:flex-start;gap:22px;transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s ease,border-color .35s ease}.indicator-card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(22,163,74,.10),transparent 48%);opacity:0;transition:opacity .4s ease}.indicator-card::after{content:"";position:absolute;top:-70px;right:-70px;width:140px;height:140px;border-radius:50%;background:rgba(22,163,74,.08);transform:scale(.4);transition:transform .5s cubic-bezier(.22,1,.36,1)}.indicator-card:hover{transform:translateY(-10px);box-shadow:0 22px 48px rgba(20,83,45,.12);border-color:rgba(22,163,74,.22)}.indicator-card:hover::before{opacity:1}.indicator-card:hover::after{transform:scale(1.2)}.indicator-icon{position:relative;z-index:1;width:54px;height:54px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(22,163,74,.15);border-radius:16px;background:#e4f8e9;color:#16a34a;font:800 17px "Outfit",sans-serif;box-shadow:0 7px 17px rgba(22,163,74,.08);transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .4s ease}.indicator-card:hover .indicator-icon{transform:rotate(-6deg) scale(1.1);box-shadow:0 12px 24px rgba(22,163,74,.15)}.indicator-card h3{position:relative;z-index:1;font:600 17px "Outfit",sans-serif;color:#14532d;margin-bottom:8px}.indicator-card p{position:relative;z-index:1;color:#64748b;font-size:12px;line-height:1.65}.indicator-card:nth-child(1){animation:cardFloat 6s ease-in-out infinite}.indicator-card:nth-child(2){animation:cardFloat 6s .35s ease-in-out infinite}.indicator-card:nth-child(3){animation:cardFloat 6s .7s ease-in-out infinite}.indicator-card:nth-child(4){animation:cardFloat 6s 1.05s ease-in-out infinite}.indicator-card:nth-child(5){animation:cardFloat 6s 1.4s ease-in-out infinite}@keyframes cardFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@media(max-width:1050px){.indicator-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:700px){.indicators{padding:65px 0}.indicator-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:480px){.indicator-grid{grid-template-columns:1fr}.indicator-card{min-height:180px}}
+
+.footer-tab {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.footer-tab:hover {
+  text-decoration: underline;
+}
+.footer-tab-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,.35);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 24px;
+}
+.footer-tab-panel {
+  position: relative;
+  width: min(720px, 100%);
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.2);
+}
+.footer-tab-panel h2 {
+  margin: 6px 0 10px;
+}
+.footer-tab-panel p {
+  margin: 0;
+  line-height: 1.7;
+}
+.footer-tab-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  opacity: .6;
+}
+.footer-tab-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  border: 0;
+  background: transparent;
+  font-size: 26px;
+  cursor: pointer;
+}
