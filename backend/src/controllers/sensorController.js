@@ -1,4 +1,4 @@
-const { writeSensorData, MEASUREMENT } = require("../services/influx");
+const { writeSensorData, writeDailyIspuAverage, MEASUREMENT, DAILY_ISPU_MEASUREMENT } = require("../services/influx");
 const { queryApi } = require("../config/influxdb");
 
 // Offset timezone lokal (WIB / Asia-Jakarta = UTC+7) dipakai buat hitung batas
@@ -316,4 +316,154 @@ from(bucket: "${process.env.INFLUX_BUCKET}")
             error: error.message,
         });
     }
-};  
+};
+
+function getIspuCategory(ispu) {
+    const value = Number(ispu);
+    if (!Number.isFinite(value)) return null;
+    if (value <= 50) return "Baik";
+    if (value <= 100) return "Sedang";
+    if (value <= 200) return "Tidak Sehat";
+    if (value <= 300) return "Sangat Tidak Sehat";
+    return "Berbahaya";
+}
+
+function parseDateOnly(value, fieldName) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(value || "")) {
+        throw new Error(`${fieldName} harus berformat YYYY-MM-DD.`);
+    }
+
+    const [year, month, day] = value.split("-").map(Number);
+    const date = new Date(Date.UTC(year, month - 1, day));
+    if (date.getUTCFullYear() !== year || date.getUTCMonth() !== month - 1 || date.getUTCDate() !== day) {
+        throw new Error(`${fieldName} bukan tanggal yang valid.`);
+    }
+    return date;
+}
+
+/**
+ * Hitung rata-rata ISPU untuk satu hari dan simpan ke measurement ispu_daily_avg.
+ * @route POST /api/sensor/calculate-daily-ispu-average
+ * @body {string} tanggal - YYYY-MM-DD
+ * @body {string} deviceId - opsional
+ */
+exports.calculateDailyIspuAverage = async (req, res) => {
+    try {
+        const { tanggal, deviceId } = req.body;
+
+        const localDate = parseDateOnly(tanggal, "tanggal");
+        if (deviceId && !isValidDeviceId(deviceId)) {
+            return res.status(400).json({ success: false, message: "Format deviceId tidak valid." });
+        }
+
+        const nextDate = new Date(localDate);
+        nextDate.setUTCDate(nextDate.getUTCDate() + 1);
+        const deviceFilter = deviceId
+            ? `\n  |> filter(fn: (r) => r.device_id == "${deviceId}")`
+            : "";
+
+        const fluxQuery = `
+from(bucket: "${process.env.INFLUX_BUCKET}")
+  |> range(start: ${localDate.toISOString()}, stop: ${nextDate.toISOString()})
+  |> filter(fn: (r) => r._measurement == "${MEASUREMENT}")
+  |> filter(fn: (r) => r._field == "ispu")${deviceFilter}
+  |> group()
+  |> mean()`;
+
+        const rows = await queryApi.collectRows(fluxQuery);
+        if (!rows.length || rows[0]._value === undefined || rows[0]._value === null) {
+            return res.status(404).json({
+                success: false,
+                message: `Tidak ada data ISPU untuk tanggal ${tanggal}.`,
+            });
+        }
+
+        const average = Number(rows[0]._value);
+        const kategori = getIspuCategory(average);
+
+        await writeDailyIspuAverage({
+            device_id: deviceId,
+            nilai_rata_rata: average,
+            kategori_rata_rata: kategori,
+            tanggal,
+        });
+
+        return res.status(201).json({
+            success: true,
+            message: "Rata-rata ISPU harian berhasil dihitung dan disimpan.",
+            data: {
+                deviceId: deviceId || null,
+                tanggal,
+                nilaiRataRata: average,
+                kategoriRataRata: kategori,
+            },
+        });
+    } catch (error) {
+        console.error("Hitung rata-rata ISPU harian error:", error);
+        const isValidationError = /^(tanggal|Format deviceId|tanggal bukan)/.test(error.message);
+        return res.status(isValidationError ? 400 : 500).json({
+            success: false,
+            message: isValidationError ? error.message : "Gagal menghitung rata-rata ISPU harian.",
+            error: isValidationError ? undefined : error.message,
+        });
+    }
+};
+
+/**
+ * Ambil rata-rata ISPU harian berdasarkan rentang tanggal inklusif.
+ * @route GET /api/sensor/get-daily-ispu-average
+ * @query startDate - YYYY-MM-DD
+ * @query endDate - YYYY-MM-DD
+ * @query deviceId - opsional
+ */
+exports.getDailyIspuAverage = async (req, res) => {
+    try {
+        const { startDate, endDate, deviceId } = req.query;
+        const start = parseDateOnly(startDate, "startDate");
+        const end = parseDateOnly(endDate, "endDate");
+
+        if (start > end) {
+            return res.status(400).json({
+                success: false,
+                message: "startDate tidak boleh lebih besar dari endDate.",
+            });
+        }
+        if (deviceId && !isValidDeviceId(deviceId)) {
+            return res.status(400).json({ success: false, message: "Format deviceId tidak valid." });
+        }
+
+        const stop = new Date(end);
+        stop.setUTCDate(stop.getUTCDate() + 1);
+        const deviceFilter = deviceId
+            ? `\n  |> filter(fn: (r) => r.device_id == "${deviceId}")`
+            : "";
+
+        const fluxQuery = `
+from(bucket: "${process.env.INFLUX_BUCKET}")
+  |> range(start: ${start.toISOString()}, stop: ${stop.toISOString()})
+  |> filter(fn: (r) => r._measurement == "${DAILY_ISPU_MEASUREMENT}")${deviceFilter}
+  |> group()
+  |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
+  |> sort(columns: ["_time"])`;
+
+        const rows = await queryApi.collectRows(fluxQuery);
+
+        return res.status(200).json({
+            success: true,
+            message: "Data rata-rata ISPU harian berhasil diambil.",
+            data: rows.map((row) => ({
+                deviceId: row.device_id || deviceId || null,
+                tanggal: row.tanggal || new Date(row._time).toISOString().slice(0, 10),
+                nilaiRataRata: row.nilai_rata_rata,
+                kategoriRataRata: row.kategori_rata_rata || getIspuCategory(row.nilai_rata_rata),
+            })),
+        });
+    } catch (error) {
+        console.error("Ambil rata-rata ISPU harian error:", error);
+        return res.status(400).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
