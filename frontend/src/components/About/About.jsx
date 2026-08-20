@@ -1,18 +1,22 @@
 import "./About.css";
 
-export default function About() {
+export default function About({ about, loading }) {
+    if (loading) {
+        return (
+            <section className="about">
+                <div className="container"><p>Memuat tentang AIRIS...</p></div>
+            </section>
+        );
+    }
+
+    if (!about) return null;
+
     return (
         <section className="about">
             <div className="container">
-
-                <h2>Tentang AIRIS</h2>
-
-                <p>
-                    AIRIS adalah sistem cerdas berbasis Internet of Things (IoT)
-                    dan Artificial Intelligence (AI) yang dirancang untuk membantu
-                    pemantauan kualitas udara di lingkungan madrasah secara real-time.
-                </p>
-
+                {/* Loaded dynamically from DB */}
+                <h2>{about.title}</h2>
+                <p>{about.content}</p>
             </div>
         </section>
     );
