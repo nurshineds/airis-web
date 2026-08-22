@@ -8,6 +8,14 @@ const {
     saveSensorData,
 } = require("../controllers/sensorController");
 
+const {
+    calculateISPU,
+} = require("../services/ispuCalculator");
+
+const {
+    getIspuCategory,
+} = require("../utils/ispuHelper");
+
 const sensorIndicatorMap = {
     co2: "CO2",
     asap: "asap",
@@ -64,6 +72,51 @@ async function startConsumer() {
                     console.log(
                         "[MQTT Consumer] Data diterima:",
                         data
+                    );
+
+                    const {
+                        ispu,
+                        coUgM3,
+                    } = calculateISPU(
+                        data.debuHalus,
+                        data.co,
+                        data.suhu
+                    );
+
+                    const kategoriIspu =
+                        getIspuCategory(
+                            ispu
+                        );
+
+                    data.ispu = ispu;
+                    data.kategoriIspu = kategoriIspu;
+
+                    console.log(
+                        "[ISPU] PM2.5:",
+                        data.debuHalus,
+                        "µg/m³"
+                    );
+
+                    console.log(
+                        "[ISPU] CO:",
+                        data.co,
+                        "ppm"
+                    );
+
+                    console.log(
+                        "[ISPU] CO:",
+                        coUgM3,
+                        "µg/m³"
+                    );
+
+                    console.log(
+                        "[ISPU] Nilai:",
+                        ispu
+                    );
+
+                    console.log(
+                        "[ISPU] Kategori:",
+                        kategoriIspu
                     );
 
                     const savedData =
