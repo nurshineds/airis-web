@@ -63,7 +63,7 @@ services:
     ports:
       - "5672:5672" #AQMP
       - "15672:15672" #Management
-      - "1883:1883" #MQTT
+      - "1884:1883" #MQTT
     environment:
       RABBITMQ_DEFAULT_USER: airisadm
       RABBITMQ_DEFAULT_PASS: kasurempukairis
