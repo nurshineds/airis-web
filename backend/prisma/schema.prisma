@@ -37,7 +37,7 @@ model thresholdValue {
   indicatorUnit    String   @db.VarChar(20)
   maxTresholdValue Float  
   minTresholdValue Float  
-  description      String   @db.Text
+  hysteresis       Float    @default(0)
   updatedAt        DateTime @updatedAt
 }
 
